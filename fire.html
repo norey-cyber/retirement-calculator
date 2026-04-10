@@ -1,244 +1,181 @@
-<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
-        <!-- Parameters Sidebar -->
-        <div class="lg:col-span-4 space-y-6">
-            <div class="glass-card rounded-3xl p-8 space-y-5">
-                <h2 class="text-xl font-bold mb-4 flex items-center gap-2">
-                    <svg class="w-5 h-5 text-indigo-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
-                    Financial Profile
-                </h2>
-                
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Current Age</label>
-                        <input type="number" id="currentAge" value="30" class="input-premium w-full rounded-xl p-3">
-                    </div>
-                    <div class="space-y-2">
-                        <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Retire Age</label>
-                        <input type="number" id="retireAge" value="55" class="input-premium w-full rounded-xl p-3">
-                    </div>
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Current Savings (<span class="currency-label">$</span>)</label>
-                    <input type="number" id="currentSavings" value="50000" class="input-premium w-full rounded-xl p-3">
-                </div>
-
-                <div class="space-y-2">
-                    <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Monthly Investment (<span class="currency-label">$</span>)</label>
-                    <input type="number" id="monthlyContribution" value="2500" class="input-premium w-full rounded-xl p-3">
-                </div>
-
-                <div class="pt-4 space-y-6">
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Annual Return</label>
-                            <span id="returnVal" class="text-sm font-bold text-indigo-400">7%</span>
-                        </div>
-                        <input type="range" id="annualReturn" min="1" max="15" step="0.5" value="7">
-                    </div>
-
-                    <div class="space-y-3">
-                        <div class="flex justify-between">
-                            <label class="text-xs font-bold text-slate-400 uppercase tracking-wider">Safe Withdrawal Rate</label>
-                            <span id="swrVal" class="text-sm font-bold text-emerald-400">4%</span>
-                        </div>
-                        <input type="range" id="swrRate" min="2" max="6" step="0.1" value="4">
-                    </div>
-                </div>
-            </div>
-
-            <!-- What-If Booster -->
-            <div class="glass-card rounded-3xl p-8 border-indigo-500/30">
-                <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                    <span class="text-2xl">🚀</span> "What-If" Booster
-                </h3>
-                <p class="text-sm text-slate-400 mb-6">How much faster could you retire if you invested extra monthly?</p>
-                <input type="range" id="extraSavings" min="0" max="5000" step="100" value="0" class="mb-4">
-                <div class="flex justify-between items-center bg-indigo-500/10 p-4 rounded-2xl border border-indigo-500/20">
-                    <span class="text-sm font-semibold">Extra Contribution:</span>
-                    <span class="text-xl font-bold text-indigo-400"><span class="currency-label">$</span><span id="extraVal">0</span></span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Analysis Dashboard -->
-        <div class="lg:col-span-8 space-y-6">
-            <!-- Highlight Results -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-card rounded-3xl p-6 text-center">
-                    <p class="text-xs font-bold text-slate-400 uppercase mb-2">FIRE Number</p>
-                    <h3 class="text-3xl font-black fire-gradient-text tracking-tight"><span class="currency-label">$</span><span id="resFireNumber">0</span></h3>
-                </div>
-                <div class="glass-card rounded-3xl p-6 text-center">
-                    <p class="text-xs font-bold text-slate-400 uppercase mb-2">Years to Freedom</p>
-                    <h3 class="text-3xl font-black text-white tracking-tight"><span id="resYears">0</span></h3>
-                </div>
-                <div class="glass-card rounded-3xl p-6 text-center">
-                    <p class="text-xs font-bold text-slate-400 uppercase mb-2">Monthly Retirement Income</p>
-                    <h3 class="text-3xl font-black text-emerald-400 tracking-tight"><span class="currency-label">$</span><span id="resIncome">0</span></h3>
-                </div>
-            </div>
-
-            <!-- Visualization -->
-            <div class="glass-card rounded-3xl p-8">
-                <div class="flex justify-between items-end mb-8">
-                    <div>
-                        <h3 class="text-xl font-bold">Wealth Projection</h3>
-                        <p class="text-sm text-slate-400">Total portfolio growth vs your retirement target.</p>
-                    </div>
-                </div>
-                <div class="relative h-[380px]">
-                    <canvas id="growthChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Bottom CTA -->
-            <div class="flex flex-col items-center pt-4">
-                <a href="https://example.com/invest" class="w-full md:w-auto bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 text-white font-bold py-5 px-12 rounded-2xl transition duration-300 shadow-2xl shadow-indigo-500/20 text-center text-lg">
-                    Start Building My Retirement Portfolio
-                </a>
-                <p class="text-[10px] text-slate-500 mt-6 tracking-widest uppercase">This is for illustration only and is not financial advice.</p>
-            </div>
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Retirement Number Calculator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    body { font-family: system-ui, sans-serif; }
+    .card { background: linear-gradient(145deg, #1f2937, #374151); }
+  </style>
+</head>
+<body class="bg-zinc-950 text-white min-h-screen py-8">
+  <div class="max-w-2xl mx-auto px-4">
+    <div class="text-center mb-8">
+      <h1 class="text-4xl font-bold mb-2">Retirement Number Calculator</h1>
+      <p class="text-zinc-400">How much do you need to retire?</p>
     </div>
-</div>
 
-<script>
-    const countryConfig = {
-        US: { symbol: '$', swr: 4.0 },
-        NZ: { symbol: '$', swr: 3.5 },
-        AU: { symbol: '$', swr: 3.8 },
-        UK: { symbol: '£', swr: 3.3 },
-        CA: { symbol: '$', swr: 3.5 },
-        EU: { symbol: '€', swr: 3.5 }
-    };
+    <div class="card rounded-3xl p-8 shadow-2xl">
+      <!-- Country -->
+      <div class="mb-6">
+        <label class="block text-sm text-zinc-400 mb-1">Country</label>
+        <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white">
+          <option value="US">United States (USD)</option>
+          <option value="NZ">New Zealand (NZD)</option>
+          <option value="AU">Australia (AUD)</option>
+          <option value="UK">United Kingdom (GBP)</option>
+          <option value="CA">Canada (CAD)</option>
+          <option value="EU">European Union (EUR)</option>
+        </select>
+      </div>
 
-    const ctx = document.getElementById('growthChart').getContext('2d');
+      <div class="grid grid-cols-2 gap-6">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Current Age</label>
+          <input type="number" id="currentAge" value="30" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Desired Retirement Age</label>
+          <input type="number" id="retireAge" value="65" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Current Savings</label>
+          <div class="relative">
+            <span class="absolute left-4 top-3.5 text-zinc-400" id="currency1">$</span>
+            <input type="number" id="currentSavings" value="50000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-10 py-3 text-white">
+          </div>
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Monthly Savings</label>
+          <div class="relative">
+            <span class="absolute left-4 top-3.5 text-zinc-400" id="currency2">$</span>
+            <input type="number" id="monthlySavings" value="2000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-10 py-3 text-white">
+          </div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-6 mt-6">
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Expected Annual Return %</label>
+          <input type="number" id="returnRate" value="7" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white">
+        </div>
+        <div>
+          <label class="block text-sm text-zinc-400 mb-1">Safe Withdrawal Rate %</label>
+          <input type="number" id="withdrawalRate" value="4" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-3 text-white">
+        </div>
+      </div>
+
+      <!-- Slider -->
+      <div class="mt-8">
+        <label class="block text-sm text-zinc-400 mb-2">Extra Monthly Savings: <span id="extraValue" class="font-semibold text-emerald-400">$0</span></label>
+        <input type="range" id="extraSlider" min="0" max="1000" step="50" value="0" oninput="calculate()" class="w-full accent-emerald-500">
+      </div>
+
+      <!-- Results -->
+      <div class="mt-10 grid grid-cols-3 gap-4 text-center">
+        <div class="bg-zinc-900 rounded-2xl p-4">
+          <div class="text-xs text-zinc-400">FIRE Number</div>
+          <div id="fireNumber" class="text-2xl font-bold text-emerald-400">$0</div>
+        </div>
+        <div class="bg-zinc-900 rounded-2xl p-4">
+          <div class="text-xs text-zinc-400">Years to Retire</div>
+          <div id="yearsToRetire" class="text-2xl font-bold">$0</div>
+        </div>
+        <div class="bg-zinc-900 rounded-2xl p-4">
+          <div class="text-xs text-zinc-400">Monthly Income</div>
+          <div id="monthlyIncome" class="text-2xl font-bold text-emerald-400">$0</div>
+        </div>
+      </div>
+
+      <!-- Chart -->
+      <div class="mt-8">
+        <canvas id="growthChart" height="180"></canvas>
+      </div>
+
+      <!-- Button -->
+      <a href="https://example.com/invest" target="_blank"
+         class="mt-10 block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-center font-semibold py-4 rounded-2xl text-lg transition-all">
+        Start Building My Retirement Portfolio
+      </a>
+
+      <p class="text-center text-xs text-zinc-500 mt-6">
+        This is for illustration only and is not financial advice.
+      </p>
+    </div>
+  </div>
+
+  <script>
     let chart;
+    function calculate() {
+      const currentAge = parseFloat(document.getElementById('currentAge').value) || 30;
+      const retireAge = parseFloat(document.getElementById('retireAge').value) || 65;
+      const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
+      const monthlySavings = parseFloat(document.getElementById('monthlySavings').value) || 0;
+      const extraSavings = parseFloat(document.getElementById('extraSlider').value) || 0;
+      const returnRate = parseFloat(document.getElementById('returnRate').value) / 100 || 0.07;
+      const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100 || 0.04;
 
-    function formatVal(val) {
-        return new Intl.NumberFormat('en-US', { maximumFractionDigits: 0 }).format(val);
+      const yearsToRetire = retireAge - currentAge;
+      const totalMonthly = monthlySavings + extraSavings;
+      const annualSavings = totalMonthly * 12;
+
+      // Simple compound interest approximation
+      let futureValue = currentSavings;
+      for (let i = 0; i < yearsToRetire; i++) {
+        futureValue = futureValue * (1 + returnRate) + annualSavings;
+      }
+
+      const fireNumber = futureValue;
+      const monthlyIncome = (fireNumber * withdrawalRate) / 12;
+
+      // Update results
+      document.getElementById('fireNumber').textContent = '$' + Math.round(fireNumber).toLocaleString();
+      document.getElementById('yearsToRetire').textContent = yearsToRetire + ' Years';
+      document.getElementById('monthlyIncome').textContent = '$' + Math.round(monthlyIncome).toLocaleString();
+      document.getElementById('extraValue').textContent = '$' + extraSavings;
+
+      // Update chart (simple)
+      if (chart) chart.destroy();
+      const ctx = document.getElementById('growthChart').getContext('2d');
+      chart = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: Array.from({length: yearsToRetire + 1}, (_, i) => currentAge + i),
+          datasets: [{
+            label: 'Projected Savings',
+            data: Array.from({length: yearsToRetire + 1}, (_, i) => {
+              let val = currentSavings;
+              for (let y = 0; y < i; y++) val = val * (1 + returnRate) + annualSavings;
+              return Math.round(val);
+            }),
+            borderColor: '#10b981',
+            tension: 0.4,
+            fill: false
+          }]
+        },
+        options: { responsive: true, plugins: { legend: { display: false } } }
+      });
     }
 
-    function update() {
-        const countryCode = document.getElementById('countrySelect').value;
-        const config = countryConfig[countryCode];
-        
-        // Sync symbols
-        document.querySelectorAll('.currency-label').forEach(el => el.textContent = config.symbol);
-
-        const curAge = parseInt(document.getElementById('currentAge').value) || 0;
-        const retAge = parseInt(document.getElementById('retireAge').value) || 0;
-        const curSav = parseFloat(document.getElementById('currentSavings').value) || 0;
-        const monthlyCont = parseFloat(document.getElementById('monthlyContribution').value) || 0;
-        const extra = parseFloat(document.getElementById('extraSavings').value) || 0;
-        const retRate = parseFloat(document.getElementById('annualReturn').value) / 100;
-        const swr = parseFloat(document.getElementById('swrRate').value) / 100;
-
-        document.getElementById('returnVal').textContent = (retRate * 100).toFixed(1) + '%';
-        document.getElementById('swrVal').textContent = (swr * 100).toFixed(1) + '%';
-        document.getElementById('extraVal').textContent = formatVal(extra);
-
-        const yearsToRetire = Math.max(0, retAge - curAge);
-        const totalMonthly = monthlyCont + extra;
-        
-        let dataPoints = [];
-        let labels = [];
-        let balance = curSav;
-        const monthlyRate = Math.pow(1 + retRate, 1/12) - 1;
-
-        labels.push(curAge);
-        dataPoints.push(balance);
-
-        for (let y = 1; y <= yearsToRetire; y++) {
-            for (let m = 0; m < 12; m++) {
-                balance = (balance + totalMonthly) * (1 + monthlyRate);
-            }
-            labels.push(curAge + y);
-            dataPoints.push(balance);
-        }
-
-        const fireNumber = (totalMonthly * 12 * 100) / (swr * 100); // Simple proxy for demonstration
-        const projectedIncome = (balance * swr) / 12;
-
-        document.getElementById('resFireNumber').textContent = formatVal(balance > 1000000 ? balance * 1.1 : 1250000); // UI placeholder for FIRE goal
-        document.getElementById('resYears').textContent = yearsToRetire;
-        document.getElementById('resIncome').textContent = formatVal(projectedIncome);
-
-        renderChart(labels, dataPoints, config.symbol);
+    function updateDefaults() {
+      const country = document.getElementById('country').value;
+      let withdrawal = 4;
+      if (country === 'NZ' || country === 'AU') withdrawal = 3.8;
+      if (country === 'EU') withdrawal = 3.5;
+      document.getElementById('withdrawalRate').value = withdrawal;
+      calculate();
     }
 
-    function renderChart(labels, data, symbol) {
-        if (chart) chart.destroy();
-
-        chart = new Chart(ctx, {
-            type: 'line',
-            data: {
-                labels: labels,
-                datasets: [{
-                    label: 'Projected Wealth',
-                    data: data,
-                    borderColor: '#6366f1',
-                    borderWidth: 4,
-                    pointBackgroundColor: '#6366f1',
-                    pointRadius: 0,
-                    pointHoverRadius: 6,
-                    fill: true,
-                    backgroundColor: (context) => {
-                        const ctx = context.chart.ctx;
-                        const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-                        gradient.addColorStop(0, 'rgba(99, 102, 241, 0.3)');
-                        gradient.addColorStop(1, 'rgba(99, 102, 241, 0)');
-                        return gradient;
-                    },
-                    tension: 0.4
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        backgroundColor: '#1e293b',
-                        titleColor: '#94a3b8',
-                        bodyColor: '#fff',
-                        bodyFont: { weight: 'bold' },
-                        padding: 12,
-                        displayColors: false,
-                        callbacks: {
-                            label: (context) => ` Portfolio: ${symbol}${formatVal(context.parsed.y)}`
-                        }
-                    }
-                },
-                scales: {
-                    x: {
-                        grid: { display: false },
-                        ticks: { color: '#64748b', font: { size: 10 } }
-                    },
-                    y: {
-                        grid: { color: 'rgba(255,255,255,0.05)' },
-                        ticks: { 
-                            color: '#64748b',
-                            font: { size: 10 },
-                            callback: (val) => symbol + formatVal(val)
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // Event Listeners
-    document.querySelectorAll('input, select').forEach(el => {
-        el.addEventListener('input', update);
-    });
-
-    document.getElementById('countrySelect').addEventListener('change', (e) => {
-        document.getElementById('swrRate').value = countryConfig[e.target.value].swr;
-        update();
-    });
-
-    // Initialize
-    update();
-</script>
+    // Initial calculation
+    window.onload = () => {
+      calculate();
+    };
+  </script>
+</body>
+</html>
