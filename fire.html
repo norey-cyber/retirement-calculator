@@ -3,16 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIRE Number Calculator | Retirement Savings Planner (NZ, AU, US, UK)</title>
-  <meta name="description" content="Calculate your Financial Independence Retire Early (FIRE) number. Features historical market returns for NZ, Australia, USA, and UK. See how many years until you can retire.">
-  <meta name="keywords" content="FIRE calculator, retirement number, financial independence, Sharesies referral, Stake referral, compound interest calculator">
+  <title>FIRE Number Calculator | Financial Independence Planner</title>
+  <meta name="description" content="Calculate your FIRE number based on expenses and savings. Plan your early retirement in NZ, AU, US, and UK.">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; scroll-behavior: smooth; }
     .card { background: linear-gradient(145deg, #1f2937, #374151); }
-    .glass { background: rgba(255, 255, 255, 0.05); backdrop-filter: blur(10px); }
+    input[type=range] { height: 6px; -webkit-appearance: none; background: #374151; border-radius: 5px; }
+    input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; height: 18px; width: 18px; border-radius: 50%; background: #10b981; cursor: pointer; }
   </style>
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
@@ -20,24 +20,23 @@
   <nav class="py-6 px-4 border-b border-zinc-800 mb-10">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
       <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">FIRE Pulse</span>
-      <div class="space-x-6 text-sm text-zinc-400">
-        <a href="#calculator" class="hover:text-white">Calculator</a>
-        <a href="#how-to" class="hover:text-white">How it Works</a>
+      <div class="hidden md:flex space-x-6 text-sm text-zinc-400">
+        <a href="#how-to" class="hover:text-white">The Math</a>
         <a href="#platforms" class="hover:text-white">Platforms</a>
       </div>
     </div>
   </nav>
 
   <div class="max-w-3xl mx-auto px-4 pb-20">
-    <div class="text-center mb-10" id="calculator">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Your Path to <span class="text-emerald-500">Early Retirement</span></h1>
-      <p class="text-zinc-400 text-lg">Input your details below to see exactly when you can stop working.</p>
+    <div class="text-center mb-10">
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Early Retirement <span class="text-emerald-500">Calculator</span></h1>
+      <p class="text-zinc-400 text-lg">Calculate your number based on what you <span class="text-white font-semibold">spend</span> vs what you <span class="text-white font-semibold">save</span>.</p>
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
       <div class="mb-8">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Select Your Region</label>
-        <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 transition-all appearance-none">
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Your Region</label>
+        <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none">
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
           <option value="US">United States (USD)</option>
@@ -49,60 +48,58 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div>
-          <label class="block text-sm text-zinc-400 mb-1">Current Age</label>
-          <input type="number" id="currentAge" value="30" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3 text-white">
-        </div>
-        <div>
-          <label class="block text-sm text-zinc-400 mb-1">Target Retirement Age</label>
-          <input type="number" id="retireAge" value="50" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3 text-white">
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
-        <div>
-          <label class="block text-sm text-zinc-400 mb-1">Current Nest Egg</label>
+          <label class="block text-sm text-emerald-400 font-medium mb-1">Monthly Expenses</label>
           <div class="relative">
-            <span class="absolute left-5 top-3.5 text-zinc-500" id="currency1">$</span>
-            <input type="number" id="currentSavings" value="25000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
+            <span class="absolute left-5 top-3.5 text-zinc-500" id="curr1">$</span>
+            <input type="number" id="monthlyExpenses" value="4000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
+          <p class="text-[10px] text-zinc-500 mt-1">How much you need to live on per month.</p>
         </div>
         <div>
-          <label class="block text-sm text-zinc-400 mb-1">Monthly Contribution</label>
+          <label class="block text-sm text-blue-400 font-medium mb-1">Monthly Savings</label>
           <div class="relative">
-            <span class="absolute left-5 top-3.5 text-zinc-500" id="currency2">$</span>
+            <span class="absolute left-5 top-3.5 text-zinc-500" id="curr2">$</span>
             <input type="number" id="monthlySavings" value="1000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
+          <p class="text-[10px] text-zinc-500 mt-1">How much you currently invest per month.</p>
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8">
         <div>
-          <label class="block text-sm text-zinc-400 mb-1">Est. Market Return % (Annual)</label>
-          <input type="number" id="returnRate" value="7.5" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3 text-white">
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Current Age</label>
+          <input type="number" id="currentAge" value="30" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="block text-sm text-zinc-400 mb-1">Safe Withdrawal Rate (SWR) %</label>
-          <input type="number" id="withdrawalRate" value="4" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3 text-white">
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Current Nest Egg</label>
+          <input type="number" id="currentSavings" value="25000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Mkt Return %</label>
+          <input type="number" id="returnRate" value="7.5" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
+        </div>
+        <div>
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">SWR %</label>
+          <input type="number" id="withdrawalRate" value="4" step="0.1" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
       </div>
 
       <div class="mt-8 bg-zinc-900/50 p-6 rounded-2xl border border-zinc-800">
         <div class="flex justify-between text-sm text-zinc-400 mb-3">
-          <span>Boost Monthly Savings</span>
+          <span>Extra Monthly Savings Boost</span>
           <span id="extraValue" class="font-bold text-emerald-400">$0</span>
         </div>
-        <input type="range" id="extraSlider" min="0" max="5000" step="100" value="0" oninput="calculate()" class="w-full h-2 bg-zinc-800 rounded-lg appearance-none cursor-pointer accent-emerald-500">
-        <p class="text-[10px] text-zinc-500 mt-2 italic text-center">Slide to see how much faster you can retire with extra contributions.</p>
+        <input type="range" id="extraSlider" min="0" max="5000" step="100" value="0" oninput="calculate()" class="w-full cursor-pointer">
       </div>
 
       <div class="mt-10 grid grid-cols-2 gap-4">
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500">Your FIRE Number</div>
-          <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400 mt-1">$0</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Your FIRE Number</div>
+          <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400">$0</div>
         </div>
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500">Years to Freedom</div>
-          <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white mt-1">0</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Freedom</div>
+          <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white">0</div>
         </div>
       </div>
 
@@ -112,68 +109,36 @@
 
       <div class="mt-10 pt-8 border-t border-zinc-700/50">
         <a id="affiliateLink" href="https://sharesies.com/r/4CRKTR" target="_blank" 
-           class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:scale-[1.02] active:scale-[0.98] text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/10">
-          Open Investment Account
+           class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/10">
+          Get Started with Sharesies
         </a>
-        <p class="text-center text-[10px] text-zinc-500 mt-4 px-6 uppercase tracking-widest">
-          Disclosure: This link supports the site at no cost to you.
-        </p>
       </div>
     </div>
 
-    <section id="how-to" class="mt-20 space-y-8">
-      <h2 class="text-3xl font-bold">Understanding the FIRE Movement</h2>
-      <div class="grid md:grid-cols-2 gap-8">
-        <div class="space-y-4">
-          <h3 class="text-emerald-400 font-semibold">What is a FIRE Number?</h3>
-          <p class="text-zinc-400 leading-relaxed">Your FIRE number is the total amount of invested assets you need to cover your annual expenses indefinitely. Most followers of the movement use the <strong>Rule of 25</strong>: Multiplying your annual expenses by 25.</p>
-        </div>
-        <div class="space-y-4">
-          <h3 class="text-emerald-400 font-semibold">The 4% Rule</h3>
-          <p class="text-zinc-400 leading-relaxed">The Safe Withdrawal Rate (SWR) is the percentage of your portfolio you can withdraw each year without running out of money. 4% is the historical gold standard based on the Trinity Study.</p>
-        </div>
+    <section id="how-to" class="mt-20">
+      <h2 class="text-3xl font-bold mb-6">The Math of Early Retirement</h2>
+      <div class="prose prose-invert max-w-none text-zinc-400 space-y-4">
+        <p>This calculator uses two primary figures to determine your freedom date:</p>
+        <ul class="list-disc pl-5 space-y-2">
+          <li><strong>The Destination (FIRE Number):</strong> This is calculated by taking your <strong>Monthly Expenses</strong> and multiplying by 12, then dividing by your <strong>Safe Withdrawal Rate (SWR)</strong>. This is based on the famous 4% rule.</li>
+          <li><strong>The Velocity (Savings):</strong> Your <strong>Monthly Savings</strong> determines how fast you fill up that bucket. The more you save relative to what you spend, the earlier you reach freedom.</li>
+        </ul>
       </div>
     </section>
 
-    <section id="platforms" class="mt-20 bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
-      <h2 class="text-2xl font-bold mb-6">Top Platforms by Region</h2>
-      <div class="overflow-x-auto">
-        <table class="w-full text-left text-sm">
-          <thead>
-            <tr class="text-zinc-500 border-b border-zinc-800">
-              <th class="pb-4">Region</th>
-              <th class="pb-4">Top Platform</th>
-              <th class="pb-4">Best For</th>
-            </tr>
-          </thead>
-          <tbody class="text-zinc-300">
-            <tr class="border-b border-zinc-800/50">
-              <td class="py-4">New Zealand</td>
-              <td class="py-4 font-semibold">Sharesies</td>
-              <td class="py-4">Micro-investing & Fractional Shares</td>
-            </tr>
-            <tr class="border-b border-zinc-800/50">
-              <td class="py-4">Australia</td>
-              <td class="py-4 font-semibold">Stake</td>
-              <td class="py-4">US & ASX Markets</td>
-            </tr>
-            <tr>
-              <td class="py-4 text-zinc-500" colspan="3">Select your country in the calculator to see your local recommendation.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+    <section id="platforms" class="mt-10 bg-zinc-900 rounded-3xl p-8 border border-zinc-800">
+        <h2 class="text-2xl font-bold mb-4">Recommended Platforms</h2>
+        <p class="text-zinc-400 text-sm mb-6">Low fees are critical for FIRE. We recommend these platforms for each region:</p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4 text-xs text-center">
+            <div class="p-3 bg-zinc-800 rounded-xl"><strong>NZ:</strong> Sharesies / Hatch</div>
+            <div class="p-3 bg-zinc-800 rounded-xl"><strong>AU:</strong> Stake</div>
+            <div class="p-3 bg-zinc-800 rounded-xl"><strong>US:</strong> Robinhood / Vanguard</div>
+        </div>
     </section>
-
   </div>
-
-  <footer class="py-10 border-t border-zinc-900 text-center text-zinc-600 text-sm">
-    <p>&copy; 2026 FIRE Pulse Calculator. For informational purposes only.</p>
-  </footer>
 
   <script>
     let chartInstance;
-
     const countryConfig = {
       'NZ': { symbol: '$', name: 'Sharesies', url: 'https://sharesies.com/r/4CRKTR', avgReturn: 7.5 },
       'AU': { symbol: '$', name: 'Stake', url: 'https://hellostake.com/', avgReturn: 8.0 },
@@ -186,53 +151,59 @@
     function updateDefaults() {
       const country = document.getElementById('country').value;
       const config = countryConfig[country];
-      
-      document.getElementById('currency1').innerText = config.symbol;
-      document.getElementById('currency2').innerText = config.symbol;
+      document.getElementById('curr1').innerText = config.symbol;
+      document.getElementById('curr2').innerText = config.symbol;
       document.getElementById('returnRate').value = config.avgReturn;
-
       const link = document.getElementById('affiliateLink');
       link.innerText = `Start Investing with ${config.name} (${country})`;
       link.href = config.url;
-
       calculate();
     }
 
     function calculate() {
       const country = document.getElementById('country').value;
       const currency = countryConfig[country].symbol;
-      const currentAge = parseInt(document.getElementById('currentAge').value) || 0;
-      const retireAge = parseInt(document.getElementById('retireAge').value) || 0;
-      const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
+      
+      // Inputs
+      const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
       const monthlySavings = parseFloat(document.getElementById('monthlySavings').value) || 0;
+      const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
       const returnRate = parseFloat(document.getElementById('returnRate').value) / 100 / 12;
       const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
       const extraMonthly = parseFloat(document.getElementById('extraSlider').value);
 
       document.getElementById('extraValue').innerText = currency + extraMonthly.toLocaleString();
 
-      const totalMonthly = monthlySavings + extraMonthly;
-      const fireNumber = (totalMonthly * 12) / withdrawalRate;
-      
+      // THE CORE LOGIC CHANGE
+      // 1. Target Number is based on Expenses
+      const fireNumber = (monthlyExpenses * 12) / withdrawalRate;
       document.getElementById('fireNumber').innerText = currency + Math.round(fireNumber).toLocaleString();
 
+      // 2. Growth is based on Savings
+      const totalMonthlyContribution = monthlySavings + extraMonthly;
       let balance = currentSavings;
       let months = 0;
       const labels = [];
       const data = [];
 
-      while (balance < fireNumber && months < 600) { 
-        balance = balance * (1 + returnRate) + totalMonthly;
+      // Avoid infinite loop if savings and returns are 0
+      if (totalMonthlyContribution <= 0 && returnRate <= 0 && balance < fireNumber) {
+        document.getElementById('yearsToRetire').innerText = "∞";
+        return;
+      }
+
+      while (balance < fireNumber && months < 1200) { // 100 year cap
+        balance = balance * (1 + returnRate) + totalMonthlyContribution;
         months++;
         if (months % 12 === 0) {
           labels.push(`Year ${Math.floor(months/12)}`);
-          data.push(balance);
+          data.push(Math.round(balance));
         }
       }
 
-      const yearsToRetire = (months / 12).toFixed(1);
-      document.getElementById('yearsToRetire').innerText = yearsToRetire;
+      document.getElementById('yearsToRetire').innerText = (months / 12).toFixed(1);
 
+      // Charting
       if (chartInstance) chartInstance.destroy();
       const ctx = document.getElementById('growthChart').getContext('2d');
       chartInstance = new Chart(ctx, {
@@ -240,33 +211,19 @@
         data: {
           labels: labels,
           datasets: [{
-            label: 'Net Worth',
             data: data,
             borderColor: '#10b981',
-            borderWidth: 3,
             tension: 0.4,
             fill: true,
-            backgroundColor: 'rgba(16, 185, 129, 0.05)',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
             pointRadius: 0
           }]
         },
         options: {
-          plugins: { 
-            legend: { display: false },
-            tooltip: {
-                callbacks: {
-                    label: function(context) {
-                        return currency + context.parsed.y.toLocaleString();
-                    }
-                }
-            }
-          },
+          plugins: { legend: { display: false } },
           scales: {
-            y: { display: false, grid: { display: false } },
-            x: { 
-                grid: { display: false }, 
-                ticks: { color: '#71717a', maxRotation: 0, autoSkip: true, maxTicksLimit: 5 } 
-            }
+            y: { display: false },
+            x: { grid: { display: false }, ticks: { color: '#71717a', maxTicksLimit: 6 } }
           }
         }
       });
