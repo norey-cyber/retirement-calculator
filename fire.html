@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FIRE Pulse | Financial Independence Retirement Calculator</title>
-  <meta name="description" content="Calculate your FIRE number and early retirement date. Interactive wealth projection with inflation adjustments for NZ, AU, US, UK, and EU.">
+  <meta name="description" content="Master your early retirement with the FIRE Pulse calculator. Explore the 4% rule, safe withdrawal rates, and wealth projection for NZ, AU, US, UK, and EU.">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -21,27 +21,28 @@
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <nav class="py-6 px-4 border-b border-zinc-800 mb-10">
+  <nav class="py-6 px-4 border-b border-zinc-800 mb-10 sticky top-0 bg-zinc-950/80 backdrop-blur-md z-50">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
       <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">FIRE Pulse</span>
       <div class="hidden md:flex space-x-6 text-sm text-zinc-400">
-        <a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a>
-        <a href="#platforms" class="hover:text-white transition-colors">Top Platforms</a>
+        <a href="#calculator" class="hover:text-white transition-colors">Calculator</a>
+        <a href="#what-is-fire" class="hover:text-white transition-colors">What is FIRE?</a>
+        <a href="#platforms" class="hover:text-white transition-colors">Platforms</a>
       </div>
     </div>
   </nav>
 
   <div class="max-w-3xl mx-auto px-4 pb-20">
-    <div class="text-center mb-10">
+    <div class="text-center mb-10" id="calculator">
       <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Early Retirement <span class="text-emerald-500">Calculator</span></h1>
-      <p class="text-zinc-400 text-lg">Plan your freedom with high-precision market data.</p>
+      <p class="text-zinc-400 text-lg">Calculate your path to complete financial freedom.</p>
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
       
       <div class="mb-8">
         <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
-        <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none">
+        <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none cursor-pointer">
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
           <option value="US">United States (USD)</option>
@@ -74,7 +75,7 @@
           <input type="number" id="currentAge" value="30" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Current Nest Egg</label>
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Nest Egg</label>
           <input type="number" id="currentSavings" value="50000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
         <div>
@@ -93,16 +94,16 @@
           <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400">$0</div>
         </div>
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Reach</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Freedom</div>
           <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white">0</div>
         </div>
       </div>
 
       <div class="mt-10 pt-8 border-t border-zinc-800">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-zinc-400">Net Worth Over Time</h3>
-          <div class="flex items-center space-x-3">
-            <span class="text-[10px] text-zinc-500 font-bold uppercase">Adjust for Inflation (3%)</span>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-zinc-400">Wealth Projection</h3>
+          <div class="flex items-center space-x-3 text-right">
+            <span class="text-[10px] text-zinc-500 font-bold uppercase leading-tight">Account for<br>Inflation (3%)</span>
             <label class="switch">
               <input type="checkbox" id="inflationToggle" onchange="calculate()" checked>
               <span class="slider"></span>
@@ -113,7 +114,6 @@
         <div class="relative h-[280px] w-full bg-zinc-900/30 rounded-2xl p-4">
           <canvas id="growthChart"></canvas>
         </div>
-        <p class="text-[10px] text-zinc-500 mt-3 text-center">Hover on the line to see your exact yearly projections.</p>
       </div>
 
       <div class="mt-10">
@@ -124,54 +124,59 @@
       </div>
     </div>
 
-    <section id="how-it-works" class="mt-20 space-y-8">
-      <h2 class="text-3xl font-bold">How the FIRE Calculation Works</h2>
-      <div class="grid md:grid-cols-2 gap-8 text-zinc-400 leading-relaxed">
-        <div class="space-y-4">
-          <h3 class="text-emerald-400 font-semibold text-lg">The Destination: The 4% Rule</h3>
-          <p>Your "Target Number" is calculated using the 4% Safe Withdrawal Rate (SWR). This suggests that if you have 25x your annual expenses invested, you can sustain your lifestyle for decades.</p>
+    <section id="what-is-fire" class="mt-20 space-y-12">
+      <div class="text-center">
+        <h2 class="text-3xl font-bold mb-4">What is the FIRE Movement?</h2>
+        <p class="text-zinc-400 max-w-2xl mx-auto">FIRE stands for <strong>Financial Independence, Retire Early</strong>. It is a lifestyle movement whose goal is to gain complete control over your time by aggressively saving and investing until work becomes optional.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6">
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Lean FIRE</div>
+          <p class="text-xs text-zinc-400">Minimalist living with low annual expenses. Retire on $25k-$40k per year.</p>
         </div>
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Fat FIRE</div>
+          <p class="text-xs text-zinc-400">High-spend early retirement without sacrificing luxury. Retire on $100k+ per year.</p>
+        </div>
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Coast FIRE</div>
+          <p class="text-xs text-zinc-400">Invest enough early on so that compound interest covers your retirement without further saving.</p>
+        </div>
+      </div>
+
+      <div class="space-y-6 text-zinc-400 leading-relaxed">
+        <h3 class="text-2xl font-bold text-white">The Three Pillars of FIRE</h3>
         <div class="space-y-4">
-          <h3 class="text-emerald-400 font-semibold text-lg">The Velocity: Savings Rate</h3>
-          <p>How fast you retire depends on your <strong>Savings Rate</strong>—the gap between your earnings and spending. This extra cash is invested and accelerated by compound interest.</p>
+          <p><strong>1. Aggressive Savings Rate:</strong> While typical financial advice suggests saving 10%, FIRE practitioners often save 50% to 70% of their income. This drastically shortens the timeline to retirement because every dollar saved is a dollar you don't need to replace with passive income.</p>
+          <p><strong>2. Low-Cost Index Investing:</strong> FIRE isn't about picking winning stocks; it's about capturing the return of the whole market while minimizing fees. Platforms like Sharesies (NZ) or Interactive Brokers (EU) allow you to buy ETFs that track the S&P 500 or NZX 50 cheaply.</p>
+          <p><strong>3. The 4% Rule (Safe Withdrawal):</strong> This mathematical safety net ensures that even when the market crashes, your portfolio should remain intact. By withdrawing only 4% of your total balance annually, history shows your money will likely last indefinitely.</p>
         </div>
       </div>
     </section>
 
     <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800">
-      <h2 class="text-2xl font-bold mb-6">Secure Investment Platforms</h2>
+      <h2 class="text-2xl font-bold mb-6">Top Regional Platforms</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
             <tr>
               <th class="pb-4 px-2">Region</th>
-              <th class="pb-4 px-2">Recommended Platform</th>
-              <th class="pb-4 px-2">Key Strength</th>
+              <th class="pb-4 px-2">Broker</th>
+              <th class="pb-4 px-2">Best Feature</th>
             </tr>
           </thead>
           <tbody class="text-zinc-300 divide-y divide-zinc-800">
-            <tr>
-              <td class="py-4 px-2">New Zealand</td>
-              <td class="py-4 px-2 font-bold text-emerald-400">Sharesies / Hatch</td>
-              <td class="py-4 px-2">Best for fractional shares and beginners.</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-2">UK</td>
-              <td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td>
-              <td class="py-4 px-2">Excellent flat-fee ISA and SIPP options.</td>
-            </tr>
-            <tr>
-              <td class="py-4 px-2">Europe (EU)</td>
-              <td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td>
-              <td class="py-4 px-2">Global market access and institutional trust.</td>
-            </tr>
+            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2">Fractional shares & Auto-invest.</td></tr>
+            <tr><td class="py-4 px-2">UK</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2">Flat-fee ISA & SIPP.</td></tr>
+            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2">Institutional-grade access.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-sm">
-      <p>&copy; 2026 FIRE Pulse. Not financial advice.</p>
+      <p>&copy; 2026 FIRE Pulse. Not financial advice. Designed for educational use.</p>
     </footer>
   </div>
 
@@ -192,7 +197,7 @@
       document.getElementById('curr2').innerText = config.symbol;
       document.getElementById('returnRate').value = config.avgReturn;
       const link = document.getElementById('affiliateLink');
-      link.innerText = `Invest with ${config.name}`;
+      link.innerText = `Get Started with ${config.name}`;
       link.href = config.url;
       calculate();
     }
@@ -210,7 +215,7 @@
       if (inflationEnabled) { annualReturn -= 0.03; }
       const monthlyReturnRate = annualReturn / 12;
 
-      const fireNumber = (monthlyExpenses * 12) / withdrawalRate;
+      const fireNumber = (monthlyExpenses * 12) / (withdrawalRate || 0.04);
       document.getElementById('fireNumber').innerText = currency + Math.round(fireNumber).toLocaleString();
 
       let balance = currentSavings;
