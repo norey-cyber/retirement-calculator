@@ -11,7 +11,8 @@
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1200&q=80">
   
-  <link rel="icon" type="image/png" href="https://img.icons8.com/external-flat-juicy-fish/60/external-pulse-medical-flat-juicy-fish.png">
+  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2864/2864230.png">
+  <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2864/2864230.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -32,7 +33,7 @@
   <nav class="py-6 px-4 border-b border-zinc-800 mb-10 sticky top-0 bg-zinc-950/80 backdrop-blur-md z-50">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
-        <img src="https://img.icons8.com/external-flat-juicy-fish/60/external-pulse-medical-flat-juicy-fish.png" class="w-8 h-8" alt="Pulse Icon">
+        <img src="https://cdn-icons-png.flaticon.com/512/2864/2864230.png" class="w-8 h-8" alt="Pulse Icon">
         <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent uppercase tracking-tighter">FIRE Pulse</span>
       </div>
       <div class="hidden md:flex space-x-6 text-sm text-zinc-400 uppercase tracking-widest font-bold">
@@ -50,6 +51,7 @@
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
+      
       <div class="mb-8">
         <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none cursor-pointer">
@@ -150,46 +152,46 @@
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Lean FIRE</div>
-          <p class="text-xs text-zinc-400">Aggressive frugality and minimalist living. Retire early on a restricted budget.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Lean FIRE</div>
+          <p class="text-xs text-zinc-400 mt-4">Retire as fast as possible on a minimalist budget.</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Fat FIRE</div>
-          <p class="text-xs text-zinc-400">Maintaining a high-quality lifestyle without sacrifice. Requires a significant nest egg.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Fat FIRE</div>
+          <p class="text-xs text-zinc-400 mt-4">Retire with a high quality of life and luxury spending.</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Coast FIRE</div>
-          <p class="text-xs text-zinc-400">Front-loading investments early so that compound interest covers your future retirement.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Coast FIRE</div>
+          <p class="text-xs text-zinc-400 mt-4">Save enough early on to let compound interest do the rest.</p>
         </div>
       </div>
 
       <div class="space-y-6 text-zinc-400 leading-relaxed">
         <h3 class="text-2xl font-bold text-white uppercase tracking-tight">The Three Pillars of FIRE</h3>
         <div class="space-y-4">
-          <p><strong>1. Savings Rate:</strong> The percentage of your income you keep. Saving 50% or more drastically shortens your timeline.</p>
-          <p><strong>2. Low-Cost Index Funds:</strong> Using broad market ETFs to capture global growth while avoiding high management fees.</p>
-          <p><strong>3. The 4% Rule:</strong> A guideline suggesting you can withdraw 4% of your starting portfolio value annually without running out of money.</p>
+          <p><strong>1. Savings Rate:</strong> The percentage of income you invest. The more you keep, the faster you achieve freedom.</p>
+          <p><strong>2. Low-Cost Index Funds:</strong> Capturing broad market growth while avoiding expensive management fees.</p>
+          <p><strong>3. The 4% Rule:</strong> A sustainable withdrawal benchmark to ensure your nest egg lasts forever.</p>
         </div>
       </div>
     </section>
 
-    <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800 shadow-inner">
-      <h2 class="text-2xl font-bold mb-6">Where to Invest</h2>
+    <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800">
+      <h2 class="text-2xl font-bold mb-6 text-center">Where to Invest</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
             <tr>
               <th class="pb-4 px-2">Region</th>
               <th class="pb-4 px-2">Broker</th>
-              <th class="pb-4 px-2">Best Feature</th>
+              <th class="pb-4 px-2">Key Feature</th>
             </tr>
           </thead>
           <tbody class="text-zinc-300 divide-y divide-zinc-800 font-medium">
-            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic text-zinc-500">Auto-investing & Fractional shares.</td></tr>
-            <tr><td class="py-4 px-2">United States (US)</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic text-zinc-500">Zero-commission stocks & options.</td></tr>
-            <tr><td class="py-4 px-2">Australia (AU)</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic text-zinc-500">US & ASX market access.</td></tr>
-            <tr><td class="py-4 px-2">United Kingdom (UK)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic text-zinc-500">Flat-fee ISA & SIPP accounts.</td></tr>
-            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic text-zinc-500">Institutional global access.</td></tr>
+            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic text-zinc-500">Auto-invest & Fractional shares.</td></tr>
+            <tr><td class="py-4 px-2">United States</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic text-zinc-500">Zero-commission stocks.</td></tr>
+            <tr><td class="py-4 px-2">Australia</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic text-zinc-500">ASX & US market access.</td></tr>
+            <tr><td class="py-4 px-2">United Kingdom</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic text-zinc-500">Flat-fee ISA accounts.</td></tr>
+            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic text-zinc-500">Global market trust.</td></tr>
           </tbody>
         </table>
       </div>
@@ -301,13 +303,14 @@
 
     function shareResults() {
       const years = document.getElementById('yearsToRetire').innerText;
-      const target = document.getElementById('fireNumber').innerText;
-      const url = window.location.href; // Grabs the current live URL
+      // Remove commas and currency symbols for a clean number
+      const target = document.getElementById('fireNumber').innerText.replace(/[$,£,€]/g, '');
+      const url = window.location.href; 
       const text = `I'm ${years} years away from Financial Independence! My FIRE target is ${target}. Find your number at FIRE Pulse: ${url}`;
       
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('shareBtnText');
-        btn.innerText = "Link & Results Copied!";
+        btn.innerText = "Results Copied!";
         setTimeout(() => btn.innerText = "Share My Results", 2000);
       });
     }
