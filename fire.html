@@ -127,30 +127,30 @@
     <section id="what-is-fire" class="mt-20 space-y-12">
       <div class="text-center">
         <h2 class="text-3xl font-bold mb-4">What is the FIRE Movement?</h2>
-        <p class="text-zinc-400 max-w-2xl mx-auto">FIRE stands for <strong>Financial Independence, Retire Early</strong>. It is a lifestyle movement whose goal is to gain complete control over your time by aggressively saving and investing until work becomes optional.</p>
+        <p class="text-zinc-400 max-w-2xl mx-auto">FIRE stands for <strong>Financial Independence, Retire Early</strong>. It is a philosophy centered on maximizing your savings rate and investing in low-cost assets until your portfolio can sustain your life indefinitely.</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Lean FIRE</div>
-          <p class="text-xs text-zinc-400">Minimalist living with low annual expenses. Retire on $25k-$40k per year.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 text-center">Lean FIRE</div>
+          <p class="text-xs text-zinc-400">Extreme frugality and minimalist living. The goal is to retire as quickly as possible on a restricted budget (approx. $25k-$40k/year).</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Fat FIRE</div>
-          <p class="text-xs text-zinc-400">High-spend early retirement without sacrificing luxury. Retire on $100k+ per year.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 text-center">Fat FIRE</div>
+          <p class="text-xs text-zinc-400">Maintaining a high-quality lifestyle without sacrifice. This requires a much larger nest egg to support annual spending of $100k+.</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2">Coast FIRE</div>
-          <p class="text-xs text-zinc-400">Invest enough early on so that compound interest covers your retirement without further saving.</p>
+          <div class="text-emerald-500 font-bold text-lg mb-2 text-center">Coast FIRE</div>
+          <p class="text-xs text-zinc-400">Front-loading your investments early so that even if you stop saving today, the portfolio will grow to your target by traditional retirement age.</p>
         </div>
       </div>
 
       <div class="space-y-6 text-zinc-400 leading-relaxed">
         <h3 class="text-2xl font-bold text-white">The Three Pillars of FIRE</h3>
         <div class="space-y-4">
-          <p><strong>1. Aggressive Savings Rate:</strong> While typical financial advice suggests saving 10%, FIRE practitioners often save 50% to 70% of their income. This drastically shortens the timeline to retirement because every dollar saved is a dollar you don't need to replace with passive income.</p>
-          <p><strong>2. Low-Cost Index Investing:</strong> FIRE isn't about picking winning stocks; it's about capturing the return of the whole market while minimizing fees. Platforms like Sharesies (NZ) or Interactive Brokers (EU) allow you to buy ETFs that track the S&P 500 or NZX 50 cheaply.</p>
-          <p><strong>3. The 4% Rule (Safe Withdrawal):</strong> This mathematical safety net ensures that even when the market crashes, your portfolio should remain intact. By withdrawing only 4% of your total balance annually, history shows your money will likely last indefinitely.</p>
+          <p><strong>1. Aggressive Savings Rate:</strong> The "secret sauce" of FIRE isn't how much you earn, but how much you keep. By keeping expenses low and saving 50% or more of your income, you reduce the time it takes to replace your working income with investment returns.</p>
+          <p><strong>2. Low-Cost Index Investing:</strong> Minimize the fees paid to fund managers. Investing in broad market ETFs (like the S&P 500) ensures you capture the growth of the overall economy over time.</p>
+          <p><strong>3. The 4% Rule (Safe Withdrawal Rate):</strong> Based on historical data, withdrawing 4% of your starting retirement portfolio (adjusted for inflation) allows the money to last 30 years or more. Dividing your annual expenses by 0.04 (or multiplying by 25) gives you your target FIRE number.</p>
         </div>
       </div>
     </section>
@@ -168,8 +168,10 @@
           </thead>
           <tbody class="text-zinc-300 divide-y divide-zinc-800">
             <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2">Fractional shares & Auto-invest.</td></tr>
-            <tr><td class="py-4 px-2">UK</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2">Flat-fee ISA & SIPP.</td></tr>
-            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2">Institutional-grade access.</td></tr>
+            <tr><td class="py-4 px-2">United States (US)</td><td class="py-4 px-2 font-bold text-emerald-400">Vanguard / Robinhood</td><td class="py-4 px-2">Industry-leading low-cost index funds.</td></tr>
+            <tr><td class="py-4 px-2">Australia (AU)</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2">Low-cost ASX and US market access.</td></tr>
+            <tr><td class="py-4 px-2">United Kingdom (UK)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2">Flat-fee structures for ISA & SIPP.</td></tr>
+            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2">Regulated institutional-grade access.</td></tr>
           </tbody>
         </table>
       </div>
@@ -185,7 +187,7 @@
     const countryConfig = {
       'NZ': { symbol: '$', name: 'Sharesies', url: 'https://sharesies.com/r/4CRKTR', avgReturn: 7.5 },
       'AU': { symbol: '$', name: 'Stake', url: 'https://hellostake.com/', avgReturn: 8.0 },
-      'US': { symbol: '$', name: 'Robinhood', url: 'https://robinhood.com/', avgReturn: 10.0 },
+      'US': { symbol: '$', name: 'Vanguard', url: 'https://investor.vanguard.com/', avgReturn: 10.0 },
       'UK': { symbol: '£', name: 'Interactive Investor', url: 'https://www.ii.co.uk/', avgReturn: 6.5 },
       'CA': { symbol: '$', name: 'Wealthsimple', url: 'https://www.wealthsimple.com/', avgReturn: 7.0 },
       'EU': { symbol: '€', name: 'Interactive Brokers', url: 'https://www.interactivebrokers.ie/', avgReturn: 6.0 }
