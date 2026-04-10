@@ -9,7 +9,6 @@
   <meta property="og:title" content="FIRE Pulse | Interactive Retirement Calculator">
   <meta property="og:description" content="Calculate your path to financial independence. See how inflation affects your retirement timeline.">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://yourusername.github.io/fire-pulse/">
   <meta property="og:image" content="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1200&q=80">
   
   <link rel="icon" type="image/png" href="https://img.icons8.com/external-flat-juicy-fish/60/external-pulse-medical-flat-juicy-fish.png">
@@ -51,7 +50,6 @@
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
-      
       <div class="mb-8">
         <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none cursor-pointer">
@@ -100,12 +98,12 @@
         </div>
       </div>
 
-      <div class="mt-10 grid grid-cols-2 gap-4">
-        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
+      <div class="mt-10 grid grid-cols-2 gap-4 text-center">
+        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
           <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Target FIRE Number</div>
           <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400">$0</div>
         </div>
-        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
+        <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800">
           <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Reach</div>
           <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white">0</div>
         </div>
@@ -122,15 +120,14 @@
             </label>
           </div>
         </div>
-        
         <div class="relative h-[280px] w-full bg-zinc-900/30 rounded-2xl p-4">
           <canvas id="growthChart"></canvas>
         </div>
       </div>
 
       <div class="mt-6 flex justify-center">
-        <button onclick="shareResults()" class="flex items-center space-x-2 text-zinc-500 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <button onclick="shareResults()" class="flex items-center space-x-2 text-zinc-500 hover:text-emerald-400 transition-colors text-xs font-bold uppercase tracking-widest group">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
           </svg>
           <span id="shareBtnText">Share My Results</span>
@@ -140,7 +137,7 @@
       <div class="mt-10">
         <a id="affiliateLink" href="https://sharesies.com/r/4CRKTR" target="_blank" 
            class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 active:scale-95 text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/20 uppercase tracking-tighter">
-          Open Investment Account
+          Open an Investment Account
         </a>
       </div>
     </div>
@@ -148,60 +145,58 @@
     <section id="what-is-fire" class="mt-20 space-y-12">
       <div class="text-center">
         <h2 class="text-3xl font-bold mb-4">What is the FIRE Movement?</h2>
-        <p class="text-zinc-400 max-w-2xl mx-auto">FIRE stands for <strong>Financial Independence, Retire Early</strong>. It is a philosophy centered on maximizing your savings rate and investing in assets until your portfolio can sustain your life indefinitely.</p>
+        <p class="text-zinc-400 max-w-2xl mx-auto italic">Financial Independence, Retire Early (FIRE) is a lifestyle movement dedicated to gaining complete control over your time.</p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
-        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2 text-center underline decoration-zinc-700 underline-offset-8">Lean FIRE</div>
-          <p class="text-xs text-zinc-400 text-center mt-4">Extreme frugality. The goal is to retire as quickly as possible on a restricted budget (approx. $25k-$40k/year).</p>
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Lean FIRE</div>
+          <p class="text-xs text-zinc-400">Aggressive frugality and minimalist living. Retire early on a restricted budget.</p>
         </div>
-        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2 text-center underline decoration-zinc-700 underline-offset-8">Fat FIRE</div>
-          <p class="text-xs text-zinc-400 text-center mt-4">Retire early without sacrificing luxury. Requires a larger nest egg for annual spending of $100k+.</p>
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Fat FIRE</div>
+          <p class="text-xs text-zinc-400">Maintaining a high-quality lifestyle without sacrifice. Requires a significant nest egg.</p>
         </div>
-        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl">
-          <div class="text-emerald-500 font-bold text-lg mb-2 text-center underline decoration-zinc-700 underline-offset-8">Coast FIRE</div>
-          <p class="text-xs text-zinc-400 text-center mt-4">Front-load investments early so you can stop saving and let compound interest do the rest of the work.</p>
+        <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
+          <div class="text-emerald-500 font-bold text-lg mb-2">Coast FIRE</div>
+          <p class="text-xs text-zinc-400">Front-loading investments early so that compound interest covers your future retirement.</p>
         </div>
       </div>
 
       <div class="space-y-6 text-zinc-400 leading-relaxed">
         <h3 class="text-2xl font-bold text-white uppercase tracking-tight">The Three Pillars of FIRE</h3>
-        <p>Achieving early retirement isn't about luck; it's a mathematical process involving these three components:</p>
         <div class="space-y-4">
-          <p><strong>1. Aggressive Savings Rate:</strong> The "secret sauce" of FIRE is how much you keep. By saving 50% or more of your income, you reduce the years of work needed to fund each year of retirement.</p>
-          <p><strong>2. Low-Cost Index Investing:</strong> Avoid high fees. Investing in broad market ETFs (Exchange Traded Funds) ensures you capture the growth of the global economy.</p>
-          <p><strong>3. The 4% Rule:</strong> Based on historical data, withdrawing 4% of your starting portfolio annually allows your funds to last indefinitely through market cycles.</p>
+          <p><strong>1. Savings Rate:</strong> The percentage of your income you keep. Saving 50% or more drastically shortens your timeline.</p>
+          <p><strong>2. Low-Cost Index Funds:</strong> Using broad market ETFs to capture global growth while avoiding high management fees.</p>
+          <p><strong>3. The 4% Rule:</strong> A guideline suggesting you can withdraw 4% of your starting portfolio value annually without running out of money.</p>
         </div>
       </div>
     </section>
 
     <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800 shadow-inner">
-      <h2 class="text-2xl font-bold mb-2">Where to Invest</h2>
-      <p class="text-zinc-500 text-sm mb-6 font-medium">To reach your FIRE goal, you need a brokerage account to buy stocks and funds. We recommend these for each region:</p>
+      <h2 class="text-2xl font-bold mb-6">Where to Invest</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
             <tr>
               <th class="pb-4 px-2">Region</th>
-              <th class="pb-4 px-2">Recommended Broker</th>
+              <th class="pb-4 px-2">Broker</th>
               <th class="pb-4 px-2">Best Feature</th>
             </tr>
           </thead>
-          <tbody class="text-zinc-300 divide-y divide-zinc-800">
-            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic">Fractional shares & Auto-invest.</td></tr>
-            <tr><td class="py-4 px-2">United States (US)</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic">Zero-commission trading & UX.</td></tr>
-            <tr><td class="py-4 px-2">Australia (AU)</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic">Low-cost ASX and US access.</td></tr>
-            <tr><td class="py-4 px-2">United Kingdom (UK)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic">Flat-fee ISA & SIPP accounts.</td></tr>
-            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic">Professional global market access.</td></tr>
+          <tbody class="text-zinc-300 divide-y divide-zinc-800 font-medium">
+            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic text-zinc-500">Auto-investing & Fractional shares.</td></tr>
+            <tr><td class="py-4 px-2">United States (US)</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic text-zinc-500">Zero-commission stocks & options.</td></tr>
+            <tr><td class="py-4 px-2">Australia (AU)</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic text-zinc-500">US & ASX market access.</td></tr>
+            <tr><td class="py-4 px-2">United Kingdom (UK)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic text-zinc-500">Flat-fee ISA & SIPP accounts.</td></tr>
+            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic text-zinc-500">Institutional global access.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-sm font-medium">
-      <p>&copy; 2026 FIRE Pulse. Not financial advice. Designed for educational use.</p>
+    <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
+      <p>&copy; 2026 FIRE Pulse. Not financial advice.</p>
     </footer>
   </div>
 
@@ -307,11 +302,12 @@
     function shareResults() {
       const years = document.getElementById('yearsToRetire').innerText;
       const target = document.getElementById('fireNumber').innerText;
-      const text = `I'm ${years} years away from Financial Independence! My FIRE target is ${target}. Find your number at FIRE Pulse.`;
+      const url = window.location.href; // Grabs the current live URL
+      const text = `I'm ${years} years away from Financial Independence! My FIRE target is ${target}. Find your number at FIRE Pulse: ${url}`;
       
       navigator.clipboard.writeText(text).then(() => {
         const btn = document.getElementById('shareBtnText');
-        btn.innerText = "Copied to Clipboard!";
+        btn.innerText = "Link & Results Copied!";
         setTimeout(() => btn.innerText = "Share My Results", 2000);
       });
     }
