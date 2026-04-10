@@ -15,17 +15,16 @@
   <div class="max-w-2xl mx-auto px-4">
     <div class="text-center mb-10">
       <h1 class="text-4xl font-bold mb-2">Retirement Number Calculator</h1>
-      <p class="text-zinc-400">Discover how much you need to retire comfortably</p>
+      <p class="text-zinc-400">How much do you need to retire comfortably?</p>
     </div>
 
     <div class="card rounded-3xl p-8 shadow-2xl">
-      <!-- Country -->
       <div class="mb-6">
         <label class="block text-sm text-zinc-400 mb-2">Your Country</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-5 py-3.5 text-white focus:outline-none focus:border-emerald-500">
-          <option value="US">United States (USD)</option>
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
+          <option value="US">United States (USD)</option>
           <option value="UK">United Kingdom (GBP)</option>
           <option value="CA">Canada (CAD)</option>
           <option value="EU">European Union (EUR)</option>
@@ -71,7 +70,6 @@
         </div>
       </div>
 
-      <!-- Extra Savings Slider -->
       <div class="mt-8">
         <div class="flex justify-between text-sm text-zinc-400 mb-2">
           <span>Extra Monthly Savings</span>
@@ -80,35 +78,34 @@
         <input type="range" id="extraSlider" min="0" max="2000" step="50" value="0" oninput="calculate()" class="w-full accent-emerald-500">
       </div>
 
-      <!-- Results -->
-      <div class="mt-10 grid grid-cols-3 gap-4">
-        <div class="bg-zinc-900 rounded-2xl p-5 text-center">
+      <div class="mt-10 grid grid-cols-3 gap-4 text-center">
+        <div class="bg-zinc-900 rounded-2xl p-5">
           <div class="text-xs text-zinc-400">FIRE Number</div>
           <div id="fireNumber" class="text-3xl font-bold text-emerald-400 mt-1">$0</div>
         </div>
-        <div class="bg-zinc-900 rounded-2xl p-5 text-center">
+        <div class="bg-zinc-900 rounded-2xl p-5">
           <div class="text-xs text-zinc-400">Years to Retire</div>
           <div id="yearsToRetire" class="text-3xl font-bold mt-1">0</div>
         </div>
-        <div class="bg-zinc-900 rounded-2xl p-5 text-center">
+        <div class="bg-zinc-900 rounded-2xl p-5">
           <div class="text-xs text-zinc-400">Monthly Income</div>
           <div id="monthlyIncome" class="text-3xl font-bold text-emerald-400 mt-1">$0</div>
         </div>
       </div>
 
-      <!-- Chart -->
       <div class="mt-8">
         <canvas id="growthChart" height="160"></canvas>
       </div>
 
-      <!-- Affiliate Button -->
-      <a href="https://www.sharesies.nz/" target="_blank" 
-         class="mt-10 block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-center font-semibold py-4 rounded-2xl text-lg transition-all shadow-lg">
-        Start Building My Retirement Portfolio
-      </a>
+      <div class="mt-10">
+        <a id="affiliateLink" href="https://sharesies.com/r/4CRKTR" target="_blank" 
+           class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-center font-semibold py-4 rounded-2xl text-lg transition-all shadow-lg">
+          Start Investing with Sharesies (NZ)
+        </a>
+      </div>
 
       <p class="text-center text-xs text-zinc-500 mt-6">
-        This is for illustration only and is not financial advice.
+        This is for illustration only and is not financial advice. I may earn a small commission if you sign up through these links (at no extra cost to you).
       </p>
     </div>
   </div>
@@ -116,74 +113,93 @@
   <script>
     let chartInstance;
 
+    const countryConfig = {
+      'NZ': { symbol: '$', name: 'Sharesies', url: 'https://sharesies.com/r/4CRKTR' },
+      'AU': { symbol: '$', name: 'Stake', url: 'https://hellostake.com/' },
+      'US': { symbol: '$', name: 'Robinhood', url: 'https://robinhood.com/' },
+      'UK': { symbol: '£', name: 'Trading 212', url: 'https://www.trading212.com/' },
+      'CA': { symbol: '$', name: 'Wealthsimple', url: 'https://www.wealthsimple.com/' },
+      'EU': { symbol: '€', name: 'DEGIRO', url: 'https://www.degiro.com/' }
+    };
+
+    function updateDefaults() {
+      const country = document.getElementById('country').value;
+      const config = countryConfig[country];
+      
+      // Update currency symbols
+      document.getElementById('currency1').innerText = config.symbol;
+      document.getElementById('currency2').innerText = config.symbol;
+      
+      // Update Affiliate Link
+      const link = document.getElementById('affiliateLink');
+      link.innerText = `Start Investing with ${config.name} (${country})`;
+      link.href = config.url;
+
+      calculate();
+    }
+
     function calculate() {
-      const currentAge = parseFloat(document.getElementById('currentAge').value) || 35;
-      const retireAge = parseFloat(document.getElementById('retireAge').value) || 65;
-      const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
-      const monthlySavings = parseFloat(document.getElementById('monthlySavings').value) || 0;
-      const extraSavings = parseFloat(document.getElementById('extraSlider').value) || 0;
-      const returnRate = (parseFloat(document.getElementById('returnRate').value) || 7) / 100;
-      const withdrawalRate = (parseFloat(document.getElementById('withdrawalRate').value) || 4) / 100;
+      const country = document.getElementById('country').value;
+      const currency = countryConfig[country].symbol;
+      const currentAge = parseInt(document.getElementById('currentAge').value);
+      const retireAge = parseInt(document.getElementById('retireAge').value);
+      const currentSavings = parseFloat(document.getElementById('currentSavings').value);
+      const monthlySavings = parseFloat(document.getElementById('monthlySavings').value);
+      const returnRate = parseFloat(document.getElementById('returnRate').value) / 100 / 12;
+      const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
+      const extraMonthly = parseFloat(document.getElementById('extraSlider').value);
 
-      const years = retireAge - currentAge;
-      const totalMonthly = monthlySavings + extraSavings;
-      const annualSavings = totalMonthly * 12;
+      document.getElementById('extraValue').innerText = currency + extraMonthly;
 
-      let futureValue = currentSavings;
-      for (let i = 0; i < years; i++) {
-        futureValue = futureValue * (1 + returnRate) + annualSavings;
+      const totalMonthly = monthlySavings + extraMonthly;
+      const annualExpenses = totalMonthly * 12 * 2; // Rough estimate for comfortable life
+      const fireNumber = (totalMonthly * 12) / withdrawalRate;
+      
+      document.getElementById('fireNumber').innerText = currency + Math.round(fireNumber).toLocaleString();
+      document.getElementById('monthlyIncome').innerText = currency + Math.round(totalMonthly).toLocaleString();
+
+      let balance = currentSavings;
+      let months = 0;
+      const labels = [];
+      const data = [];
+
+      while (balance < fireNumber && months < 600) { // 50 year cap
+        balance = balance * (1 + returnRate) + totalMonthly;
+        months++;
+        if (months % 12 === 0) {
+          labels.push(`Year ${Math.floor(months/12)}`);
+          data.push(balance);
+        }
       }
 
-      const fireNumber = Math.round(futureValue);
-      const monthlyIncome = Math.round((fireNumber * withdrawalRate) / 12);
+      document.getElementById('yearsToRetire').innerText = (months / 12).toFixed(1);
 
-      // Update UI
-      document.getElementById('fireNumber').textContent = '$' + fireNumber.toLocaleString();
-      document.getElementById('yearsToRetire').textContent = years + ' Years';
-      document.getElementById('monthlyIncome').textContent = '$' + monthlyIncome.toLocaleString();
-      document.getElementById('extraValue').textContent = '$' + extraSavings;
-
-      // Update Chart
       if (chartInstance) chartInstance.destroy();
       const ctx = document.getElementById('growthChart').getContext('2d');
       chartInstance = new Chart(ctx, {
         type: 'line',
         data: {
-          labels: Array.from({length: years + 1}, (_, i) => currentAge + i),
+          labels: labels,
           datasets: [{
-            label: 'Projected Savings',
-            data: Array.from({length: years + 1}, (_, i) => {
-              let val = currentSavings;
-              for (let y = 0; y < i; y++) val = val * (1 + returnRate) + annualSavings;
-              return Math.round(val);
-            }),
+            label: 'Portfolio Growth',
+            data: data,
             borderColor: '#10b981',
             tension: 0.4,
-            borderWidth: 3,
-            pointRadius: 0
+            fill: true,
+            backgroundColor: 'rgba(16, 185, 129, 0.1)'
           }]
         },
         options: {
-          responsive: true,
           plugins: { legend: { display: false } },
-          scales: { y: { grid: { color: '#374151' } } }
+          scales: {
+            y: { display: false },
+            x: { grid: { display: false }, ticks: { color: '#71717a' } }
+          }
         }
       });
     }
 
-    function updateDefaults() {
-      const country = document.getElementById('country').value;
-      let withdrawal = 4;
-      if (country === 'NZ' || country === 'AU') withdrawal = 3.8;
-      if (country === 'EU') withdrawal = 3.5;
-      document.getElementById('withdrawalRate').value = withdrawal;
-      calculate();
-    }
-
-    // Initial load
-    window.onload = () => {
-      calculate();
-    };
+    window.onload = updateDefaults;
   </script>
 </body>
 </html>
