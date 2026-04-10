@@ -4,15 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FIRE Pulse | Interactive Retirement Calculator</title>
-  <meta name="description" content="Find your freedom date in seconds. Interactive FIRE calculator with inflation adjustments for NZ, AU, US, UK, and EU.">
+  <title>FIRE Pulse | Interactive Financial Independence Retire Early Calculator</title>
+  <meta name="description" content="Calculate your FIRE number and early retirement timeline. Detailed insights into the 4% rule, safe withdrawal rates, and inflation-adjusted wealth projection for NZ, AU, US, UK, and EU.">
+  <meta name="keywords" content="FIRE calculator, early retirement, 4% rule, safe withdrawal rate, financial independence, Sharesies referral, Robinhood, retirement planning">
   <meta property="og:title" content="FIRE Pulse | Interactive Retirement Calculator">
-  <meta property="og:description" content="Calculate your path to financial independence. See how inflation affects your retirement timeline.">
+  <meta property="og:description" content="Visualise your journey to financial freedom. Adjust for inflation and explore regional market returns.">
   <meta property="og:type" content="website">
   <meta property="og:image" content="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?auto=format&fit=crop&w=1200&q=80">
   
-  <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2864/2864230.png">
-  <link rel="shortcut icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/2864/2864230.png">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2220%22 fill=%22%2310b981%22/><text y=%22.9em%22 x=%2250%%22 font-size=%2260%22 text-anchor=%22middle%22 font-family=%22sans-serif%22 font-weight=%22bold%22 fill=%22white%22>FP</text></svg>">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
@@ -33,7 +33,7 @@
   <nav class="py-6 px-4 border-b border-zinc-800 mb-10 sticky top-0 bg-zinc-950/80 backdrop-blur-md z-50">
     <div class="max-w-4xl mx-auto flex justify-between items-center">
       <div class="flex items-center space-x-2">
-        <img src="https://cdn-icons-png.flaticon.com/512/2864/2864230.png" class="w-8 h-8" alt="Pulse Icon">
+        <div class="bg-emerald-500 text-white font-bold w-8 h-8 flex items-center justify-center rounded-lg text-xs">FP</div>
         <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent uppercase tracking-tighter">FIRE Pulse</span>
       </div>
       <div class="hidden md:flex space-x-6 text-sm text-zinc-400 uppercase tracking-widest font-bold">
@@ -53,7 +53,7 @@
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
       
       <div class="mb-8">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Market Data</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none cursor-pointer">
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
@@ -147,58 +147,68 @@
     <section id="what-is-fire" class="mt-20 space-y-12">
       <div class="text-center">
         <h2 class="text-3xl font-bold mb-4">What is the FIRE Movement?</h2>
-        <p class="text-zinc-400 max-w-2xl mx-auto italic">Financial Independence, Retire Early (FIRE) is a lifestyle movement dedicated to gaining complete control over your time.</p>
+        <p class="text-zinc-400 max-w-2xl mx-auto italic">Financial Independence, Retire Early (FIRE) is a financial lifestyle movement focused on gaining complete control over your most valuable asset: <strong>Time.</strong></p>
       </div>
 
       <div class="grid md:grid-cols-3 gap-6">
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
           <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Lean FIRE</div>
-          <p class="text-xs text-zinc-400 mt-4">Retire as fast as possible on a minimalist budget.</p>
+          <p class="text-xs text-zinc-400 mt-4 leading-relaxed">Retire early by adopting extreme frugality. Focuses on covering essential living costs (approx. $25k-$40k/year) to exit the workforce as fast as possible.</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
           <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Fat FIRE</div>
-          <p class="text-xs text-zinc-400 mt-4">Retire with a high quality of life and luxury spending.</p>
+          <p class="text-xs text-zinc-400 mt-4 leading-relaxed">Retire early without sacrificing a high-quality lifestyle. Requires a significant nest egg to support luxury spending ($100k+/year) indefinitely.</p>
         </div>
         <div class="p-6 bg-zinc-900/50 border border-zinc-800 rounded-2xl text-center">
           <div class="text-emerald-500 font-bold text-lg mb-2 underline underline-offset-8">Coast FIRE</div>
-          <p class="text-xs text-zinc-400 mt-4">Save enough early on to let compound interest do the rest.</p>
+          <p class="text-xs text-zinc-400 mt-4 leading-relaxed">Investing aggressively early in life so that compound interest will cover your retirement even if you stop saving more today.</p>
         </div>
       </div>
 
-      <div class="space-y-6 text-zinc-400 leading-relaxed">
-        <h3 class="text-2xl font-bold text-white uppercase tracking-tight">The Three Pillars of FIRE</h3>
+      <div class="space-y-8 text-zinc-400 leading-relaxed">
+        <h3 class="text-3xl font-bold text-white uppercase tracking-tight text-center">The Three Pillars of FIRE</h3>
+        
         <div class="space-y-4">
-          <p><strong>1. Savings Rate:</strong> The percentage of income you invest. The more you keep, the faster you achieve freedom.</p>
-          <p><strong>2. Low-Cost Index Funds:</strong> Capturing broad market growth while avoiding expensive management fees.</p>
-          <p><strong>3. The 4% Rule:</strong> A sustainable withdrawal benchmark to ensure your nest egg lasts forever.</p>
+          <h4 class="text-xl font-bold text-emerald-400 underline decoration-zinc-700">1. Maximizing the Savings Rate</h4>
+          <p>Your <strong>Savings Rate</strong> is the single most important variable in your journey to freedom. While traditional advice suggests saving 10% of your income, FIRE practitioners often aim for 50% or higher. Every dollar saved serves a dual purpose: it builds your nest egg through <strong>compound interest</strong> and reduces the "lifestyle creep" that requires a larger portfolio to sustain.</p>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-xl font-bold text-emerald-400 underline decoration-zinc-700">2. Low-Cost Diversified Investing</h4>
+          <p>The movement prioritizes capturing broad market returns while minimizing internal fees. By investing in <strong>Low-Cost Index Funds</strong> and ETFs (Exchange Traded Funds), you own a piece of the world's most profitable companies. Diversification across regions (NZ, AU, US) ensures that your retirement isn't dependent on a single economy, protecting you from localized market volatility.</p>
+        </div>
+
+        <div class="space-y-4">
+          <h4 class="text-xl font-bold text-emerald-400 underline decoration-zinc-700">3. The 4% Rule & Safe Withdrawal Rates</h4>
+          <p>Derived from the Trinity Study, the <strong>4% Rule</strong> is the mathematical safety net of early retirement. It suggests that if you withdraw 4% of your starting portfolio value annually (adjusted for inflation), your money has a high probability of lasting 30 years or more. To find your "FIRE Number," simply multiply your annual expenses by 25—this target ensures your passive income covers your lifestyle indefinitely.</p>
         </div>
       </div>
     </section>
 
-    <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800">
-      <h2 class="text-2xl font-bold mb-6 text-center">Where to Invest</h2>
+    <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800 shadow-inner">
+      <h2 class="text-2xl font-bold mb-6 text-center">Top Recommended Investment Brokers</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
             <tr>
               <th class="pb-4 px-2">Region</th>
               <th class="pb-4 px-2">Broker</th>
-              <th class="pb-4 px-2">Key Feature</th>
+              <th class="pb-4 px-2">Key FIRE Feature</th>
             </tr>
           </thead>
           <tbody class="text-zinc-300 divide-y divide-zinc-800 font-medium">
-            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic text-zinc-500">Auto-invest & Fractional shares.</td></tr>
-            <tr><td class="py-4 px-2">United States</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic text-zinc-500">Zero-commission stocks.</td></tr>
-            <tr><td class="py-4 px-2">Australia</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic text-zinc-500">ASX & US market access.</td></tr>
-            <tr><td class="py-4 px-2">United Kingdom</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic text-zinc-500">Flat-fee ISA accounts.</td></tr>
-            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic text-zinc-500">Global market trust.</td></tr>
+            <tr><td class="py-4 px-2">New Zealand</td><td class="py-4 px-2 font-bold text-emerald-400">Sharesies</td><td class="py-4 px-2 italic text-zinc-500">Auto-investing & Fractional US/NZ shares.</td></tr>
+            <tr><td class="py-4 px-2">United States</td><td class="py-4 px-2 font-bold text-emerald-400">Robinhood</td><td class="py-4 px-2 italic text-zinc-500">Commission-free trading & modern UX.</td></tr>
+            <tr><td class="py-4 px-2">Australia</td><td class="py-4 px-2 font-bold text-emerald-400">Stake</td><td class="py-4 px-2 italic text-zinc-500">Low-cost ASX and US market access.</td></tr>
+            <tr><td class="py-4 px-2">United Kingdom</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td><td class="py-4 px-2 italic text-zinc-500">Flat-fee structures for large portfolios.</td></tr>
+            <tr><td class="py-4 px-2">Europe (EU)</td><td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td><td class="py-4 px-2 italic text-zinc-500">Professional-grade global market trust.</td></tr>
           </tbody>
         </table>
       </div>
     </section>
 
     <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-xs font-bold uppercase tracking-widest">
-      <p>&copy; 2026 FIRE Pulse. Not financial advice.</p>
+      <p>&copy; 2026 FIRE Pulse. All data for educational purposes only. Not financial advice.</p>
     </footer>
   </div>
 
@@ -303,7 +313,6 @@
 
     function shareResults() {
       const years = document.getElementById('yearsToRetire').innerText;
-      // Remove commas and currency symbols for a clean number
       const target = document.getElementById('fireNumber').innerText.replace(/[$,£,€]/g, '');
       const url = window.location.href; 
       const text = `I'm ${years} years away from Financial Independence! My FIRE target is ${target}. Find your number at FIRE Pulse: ${url}`;
