@@ -3,7 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FIRE Pulse | Interactive Retirement Planner</title>
+  <title>FIRE Pulse | Financial Independence Retirement Calculator</title>
+  <meta name="description" content="Calculate your FIRE number and early retirement date. Interactive wealth projection with inflation adjustments for NZ, AU, US, and UK.">
+  
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
@@ -20,16 +22,26 @@
 </head>
 <body class="bg-zinc-950 text-white min-h-screen">
 
-  <div class="max-w-3xl mx-auto px-4 py-12 pb-20">
+  <nav class="py-6 px-4 border-b border-zinc-800 mb-10">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+      <span class="text-xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">FIRE Pulse</span>
+      <div class="hidden md:flex space-x-6 text-sm text-zinc-400">
+        <a href="#how-it-works" class="hover:text-white transition-colors">How it Works</a>
+        <a href="#platforms" class="hover:text-white transition-colors">Top Platforms</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="max-w-3xl mx-auto px-4 pb-20">
     <div class="text-center mb-10">
-      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">FIRE <span class="text-emerald-500">Pulse</span></h1>
-      <p class="text-zinc-400">Interactive path to financial independence.</p>
+      <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Early Retirement <span class="text-emerald-500">Calculator</span></h1>
+      <p class="text-zinc-400 text-lg italic">"The best time to plant a tree was 20 years ago. The second best time is now."</p>
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
       
       <div class="mb-8">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Your Region & Market</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none">
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
@@ -47,6 +59,7 @@
             <span class="absolute left-5 top-3.5 text-zinc-500" id="curr1">$</span>
             <input type="number" id="monthlyExpenses" value="4000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
+          <p class="text-[10px] text-zinc-500 mt-1">Your target monthly spending in retirement.</p>
         </div>
         <div>
           <label class="block text-sm text-blue-400 font-medium mb-1">Monthly Savings</label>
@@ -54,6 +67,7 @@
             <span class="absolute left-5 top-3.5 text-zinc-500" id="curr2">$</span>
             <input type="number" id="monthlySavings" value="1500" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
+          <p class="text-[10px] text-zinc-500 mt-1">What you invest every month into the market.</p>
         </div>
       </div>
 
@@ -63,7 +77,7 @@
           <input type="number" id="currentAge" value="30" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
         <div>
-          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Nest Egg</label>
+          <label class="block text-[10px] text-zinc-500 uppercase mb-1">Current Nest Egg</label>
           <input type="number" id="currentSavings" value="50000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-xl px-4 py-2 text-sm text-white">
         </div>
         <div>
@@ -78,20 +92,20 @@
 
       <div class="mt-10 grid grid-cols-2 gap-4">
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Target Number</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Target FIRE Number</div>
           <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400">$0</div>
         </div>
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Reach</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Freedom</div>
           <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white">0</div>
         </div>
       </div>
 
       <div class="mt-10 pt-8 border-t border-zinc-800">
         <div class="flex items-center justify-between mb-4">
-          <h3 class="text-sm font-semibold uppercase tracking-wider text-zinc-400">Wealth Projection</h3>
+          <h3 class="text-sm font-semibold uppercase tracking-wider text-zinc-400">Net Worth Over Time</h3>
           <div class="flex items-center space-x-3">
-            <span class="text-[11px] text-zinc-500 font-bold uppercase">Account for Inflation (3%)</span>
+            <span class="text-[10px] text-zinc-500 font-bold uppercase">Adjust for Inflation (3%)</span>
             <label class="switch">
               <input type="checkbox" id="inflationToggle" onchange="calculate()" checked>
               <span class="slider"></span>
@@ -99,19 +113,72 @@
           </div>
         </div>
         
-        <div class="relative h-[250px] w-full bg-zinc-900/30 rounded-2xl p-4">
+        <div class="relative h-[280px] w-full bg-zinc-900/30 rounded-2xl p-4">
           <canvas id="growthChart"></canvas>
         </div>
-        <p class="text-[10px] text-zinc-500 mt-2 text-center">Hover over the line to see your projected net worth each year.</p>
+        <p class="text-[10px] text-zinc-500 mt-3 text-center">Hover or tap on the line to see your exact yearly projections.</p>
       </div>
 
       <div class="mt-10">
         <a id="affiliateLink" href="https://sharesies.com/r/4CRKTR" target="_blank" 
-           class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 active:scale-95 text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/10">
+           class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 active:scale-95 text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/20">
           Get Started with Sharesies
         </a>
+        <p class="text-center text-[10px] text-zinc-500 mt-4 px-6 uppercase tracking-widest">
+          Transparency: We may receive a small commission if you sign up via our links.
+        </p>
       </div>
     </div>
+
+    <section id="how-it-works" class="mt-20 space-y-8">
+      <h2 class="text-3xl font-bold">How the FIRE Calculation Works</h2>
+      <div class="grid md:grid-cols-2 gap-8 text-zinc-400 leading-relaxed">
+        <div class="space-y-4">
+          <h3 class="text-emerald-400 font-semibold text-lg">The Destination: The 4% Rule</h3>
+          <p>Your "Target Number" is based on your <strong>Monthly Expenses</strong>. The 4% Safe Withdrawal Rate (SWR) suggests that if you have invested 25 times your annual expenses, you can live off the returns for life without depleting your principal.</p>
+        </div>
+        <div class="space-y-4">
+          <h3 class="text-emerald-400 font-semibold text-lg">The Velocity: Savings Rate</h3>
+          <p>The speed at which you retire is dictated by your <strong>Savings Rate</strong>. The gap between what you earn and what you spend is the fuel that drives your portfolio growth via compound interest.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800">
+      <h2 class="text-2xl font-bold mb-6">Top Investment Platforms</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full text-left text-sm">
+          <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
+            <tr>
+              <th class="pb-4 px-2">Region</th>
+              <th class="pb-4 px-2">Recommended</th>
+              <th class="pb-4 px-2">Why It Matters</th>
+            </tr>
+          </thead>
+          <tbody class="text-zinc-300 divide-y divide-zinc-800">
+            <tr>
+              <td class="py-4 px-2">New Zealand</td>
+              <td class="py-4 px-2 font-bold text-emerald-400">Sharesies / Hatch</td>
+              <td class="py-4 px-2">Low fees and fractional share access.</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-2">Australia</td>
+              <td class="py-4 px-2 font-bold text-emerald-400">Stake</td>
+              <td class="py-4 px-2">Direct US & ASX market trading.</td>
+            </tr>
+            <tr>
+              <td class="py-4 px-2">USA</td>
+              <td class="py-4 px-2 font-bold text-emerald-400">Robinhood / Vanguard</td>
+              <td class="py-4 px-2">Industry standard for index funds.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-sm">
+      <p>&copy; 2026 FIRE Pulse. Not financial advice. Always do your own research.</p>
+    </footer>
   </div>
 
   <script>
@@ -147,9 +214,10 @@
       const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
       
       let annualReturn = parseFloat(document.getElementById('returnRate').value) / 100;
-      if (inflationEnabled) { annualReturn = annualReturn - 0.03; }
+      if (inflationEnabled) { annualReturn = annualReturn - 0.03; } // Apply 3% inflation hit
       const monthlyReturnRate = annualReturn / 12;
 
+      // 4% Rule Logic
       const fireNumber = (monthlyExpenses * 12) / withdrawalRate;
       document.getElementById('fireNumber').innerText = currency + Math.round(fireNumber).toLocaleString();
 
@@ -158,11 +226,11 @@
       const labels = [];
       const data = [];
 
-      // Initial state
+      // Start data point
       labels.push(`Age ${currentAge}`);
       data.push(Math.round(balance));
 
-      while (balance < fireNumber && months < 600) {
+      while (balance < fireNumber && months < 720) { // 60 year ceiling
         balance = balance * (1 + monthlyReturnRate) + monthlySavings;
         months++;
         if (months % 12 === 0) {
@@ -183,12 +251,13 @@
             data: data,
             borderColor: '#10b981',
             borderWidth: 3,
-            tension: 0.3,
+            tension: 0.35,
             fill: true,
-            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            backgroundColor: 'rgba(16, 185, 129, 0.08)',
             pointRadius: 2,
-            pointHoverRadius: 6,
+            pointHoverRadius: 7,
             pointBackgroundColor: '#10b981',
+            pointBorderColor: '#1f2937'
           }]
         },
         options: {
@@ -200,15 +269,15 @@
             tooltip: {
               backgroundColor: '#1f2937',
               titleColor: '#9ca3af',
-              bodyColor: '#fff',
-              bodyFont: { weight: 'bold', size: 14 },
+              titleFont: { size: 12 },
+              bodyFont: { weight: 'bold', size: 15 },
               padding: 12,
               borderColor: '#374151',
               borderWidth: 1,
               displayColors: false,
               callbacks: {
                 label: function(context) {
-                  return 'Portfolio: ' + currency + context.parsed.y.toLocaleString();
+                  return 'Net Worth: ' + currency + context.parsed.y.toLocaleString();
                 }
               }
             }
@@ -217,7 +286,7 @@
             y: { display: false },
             x: { 
               grid: { display: false }, 
-              ticks: { color: '#71717a', maxTicksLimit: 6, font: { size: 10 } } 
+              ticks: { color: '#71717a', maxTicksLimit: 7, font: { size: 10 } } 
             }
           }
         }
