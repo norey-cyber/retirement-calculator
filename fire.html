@@ -4,14 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FIRE Pulse | Financial Independence Retirement Calculator</title>
-  <meta name="description" content="Calculate your FIRE number and early retirement date. Interactive wealth projection with inflation adjustments for NZ, AU, US, and UK.">
+  <meta name="description" content="Calculate your FIRE number and early retirement date. Interactive wealth projection with inflation adjustments for NZ, AU, US, UK, and EU.">
   
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
   <style>
     body { font-family: system-ui, -apple-system, sans-serif; scroll-behavior: smooth; }
     .card { background: linear-gradient(145deg, #1f2937, #374151); }
-    /* Toggle Switch Styles */
     .switch { position: relative; display: inline-block; width: 44px; height: 22px; }
     .switch input { opacity: 0; width: 0; height: 0; }
     .slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #374151; transition: .4s; border-radius: 34px; }
@@ -35,13 +34,13 @@
   <div class="max-w-3xl mx-auto px-4 pb-20">
     <div class="text-center mb-10">
       <h1 class="text-4xl md:text-5xl font-extrabold mb-4 tracking-tight">Early Retirement <span class="text-emerald-500">Calculator</span></h1>
-      <p class="text-zinc-400 text-lg italic">"The best time to plant a tree was 20 years ago. The second best time is now."</p>
+      <p class="text-zinc-400 text-lg">Plan your freedom with high-precision market data.</p>
     </div>
 
     <div class="card rounded-3xl p-6 md:p-10 shadow-2xl border border-zinc-700/50">
       
       <div class="mb-8">
-        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Your Region & Market</label>
+        <label class="block text-xs font-semibold uppercase tracking-wider text-zinc-500 mb-3">Region & Historical Return</label>
         <select id="country" onchange="updateDefaults()" class="w-full bg-zinc-900 border border-zinc-700 rounded-2xl px-5 py-4 text-white focus:outline-none focus:border-emerald-500 appearance-none">
           <option value="NZ" selected>New Zealand (NZD)</option>
           <option value="AU">Australia (AUD)</option>
@@ -59,7 +58,6 @@
             <span class="absolute left-5 top-3.5 text-zinc-500" id="curr1">$</span>
             <input type="number" id="monthlyExpenses" value="4000" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
-          <p class="text-[10px] text-zinc-500 mt-1">Your target monthly spending in retirement.</p>
         </div>
         <div>
           <label class="block text-sm text-blue-400 font-medium mb-1">Monthly Savings</label>
@@ -67,7 +65,6 @@
             <span class="absolute left-5 top-3.5 text-zinc-500" id="curr2">$</span>
             <input type="number" id="monthlySavings" value="1500" oninput="calculate()" class="w-full bg-zinc-800 border border-zinc-700 rounded-2xl px-12 py-3 text-white">
           </div>
-          <p class="text-[10px] text-zinc-500 mt-1">What you invest every month into the market.</p>
         </div>
       </div>
 
@@ -96,7 +93,7 @@
           <div id="fireNumber" class="text-2xl md:text-3xl font-bold text-emerald-400">$0</div>
         </div>
         <div class="bg-zinc-950/50 rounded-2xl p-6 border border-zinc-800 text-center">
-          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Freedom</div>
+          <div class="text-xs uppercase tracking-widest text-zinc-500 mb-1">Years to Reach</div>
           <div id="yearsToRetire" class="text-2xl md:text-3xl font-bold text-white">0</div>
         </div>
       </div>
@@ -116,7 +113,7 @@
         <div class="relative h-[280px] w-full bg-zinc-900/30 rounded-2xl p-4">
           <canvas id="growthChart"></canvas>
         </div>
-        <p class="text-[10px] text-zinc-500 mt-3 text-center">Hover or tap on the line to see your exact yearly projections.</p>
+        <p class="text-[10px] text-zinc-500 mt-3 text-center">Hover on the line to see your exact yearly projections.</p>
       </div>
 
       <div class="mt-10">
@@ -124,9 +121,6 @@
            class="block w-full bg-gradient-to-r from-emerald-500 to-teal-500 hover:brightness-110 active:scale-95 text-center font-bold py-5 rounded-2xl text-xl transition-all shadow-xl shadow-emerald-500/20">
           Get Started with Sharesies
         </a>
-        <p class="text-center text-[10px] text-zinc-500 mt-4 px-6 uppercase tracking-widest">
-          Transparency: We may receive a small commission if you sign up via our links.
-        </p>
       </div>
     </div>
 
@@ -135,41 +129,41 @@
       <div class="grid md:grid-cols-2 gap-8 text-zinc-400 leading-relaxed">
         <div class="space-y-4">
           <h3 class="text-emerald-400 font-semibold text-lg">The Destination: The 4% Rule</h3>
-          <p>Your "Target Number" is based on your <strong>Monthly Expenses</strong>. The 4% Safe Withdrawal Rate (SWR) suggests that if you have invested 25 times your annual expenses, you can live off the returns for life without depleting your principal.</p>
+          <p>Your "Target Number" is calculated using the 4% Safe Withdrawal Rate (SWR). This suggests that if you have 25x your annual expenses invested, you can sustain your lifestyle for decades.</p>
         </div>
         <div class="space-y-4">
           <h3 class="text-emerald-400 font-semibold text-lg">The Velocity: Savings Rate</h3>
-          <p>The speed at which you retire is dictated by your <strong>Savings Rate</strong>. The gap between what you earn and what you spend is the fuel that drives your portfolio growth via compound interest.</p>
+          <p>How fast you retire depends on your <strong>Savings Rate</strong>—the gap between your earnings and spending. This extra cash is invested and accelerated by compound interest.</p>
         </div>
       </div>
     </section>
 
     <section id="platforms" class="mt-20 bg-zinc-900/50 rounded-3xl p-8 border border-zinc-800">
-      <h2 class="text-2xl font-bold mb-6">Top Investment Platforms</h2>
+      <h2 class="text-2xl font-bold mb-6">Secure Investment Platforms</h2>
       <div class="overflow-x-auto">
         <table class="w-full text-left text-sm">
           <thead class="text-zinc-500 uppercase text-[10px] tracking-widest border-b border-zinc-800">
             <tr>
               <th class="pb-4 px-2">Region</th>
-              <th class="pb-4 px-2">Recommended</th>
-              <th class="pb-4 px-2">Why It Matters</th>
+              <th class="pb-4 px-2">Recommended Platform</th>
+              <th class="pb-4 px-2">Key Strength</th>
             </tr>
           </thead>
           <tbody class="text-zinc-300 divide-y divide-zinc-800">
             <tr>
               <td class="py-4 px-2">New Zealand</td>
               <td class="py-4 px-2 font-bold text-emerald-400">Sharesies / Hatch</td>
-              <td class="py-4 px-2">Low fees and fractional share access.</td>
+              <td class="py-4 px-2">Best for fractional shares and beginners.</td>
             </tr>
             <tr>
-              <td class="py-4 px-2">Australia</td>
-              <td class="py-4 px-2 font-bold text-emerald-400">Stake</td>
-              <td class="py-4 px-2">Direct US & ASX market trading.</td>
+              <td class="py-4 px-2">UK</td>
+              <td class="py-4 px-2 font-bold text-emerald-400">Interactive Investor</td>
+              <td class="py-4 px-2">Excellent flat-fee ISA and SIPP options.</td>
             </tr>
             <tr>
-              <td class="py-4 px-2">USA</td>
-              <td class="py-4 px-2 font-bold text-emerald-400">Robinhood / Vanguard</td>
-              <td class="py-4 px-2">Industry standard for index funds.</td>
+              <td class="py-4 px-2">Europe (EU)</td>
+              <td class="py-4 px-2 font-bold text-emerald-400">Interactive Brokers</td>
+              <td class="py-4 px-2">Global market access and institutional trust.</td>
             </tr>
           </tbody>
         </table>
@@ -177,7 +171,7 @@
     </section>
 
     <footer class="mt-20 py-10 border-t border-zinc-900 text-center text-zinc-600 text-sm">
-      <p>&copy; 2026 FIRE Pulse. Not financial advice. Always do your own research.</p>
+      <p>&copy; 2026 FIRE Pulse. Not financial advice.</p>
     </footer>
   </div>
 
@@ -187,9 +181,9 @@
       'NZ': { symbol: '$', name: 'Sharesies', url: 'https://sharesies.com/r/4CRKTR', avgReturn: 7.5 },
       'AU': { symbol: '$', name: 'Stake', url: 'https://hellostake.com/', avgReturn: 8.0 },
       'US': { symbol: '$', name: 'Robinhood', url: 'https://robinhood.com/', avgReturn: 10.0 },
-      'UK': { symbol: '£', name: 'Trading 212', url: 'https://www.trading212.com/', avgReturn: 6.5 },
+      'UK': { symbol: '£', name: 'Interactive Investor', url: 'https://www.ii.co.uk/', avgReturn: 6.5 },
       'CA': { symbol: '$', name: 'Wealthsimple', url: 'https://www.wealthsimple.com/', avgReturn: 7.0 },
-      'EU': { symbol: '€', name: 'DEGIRO', url: 'https://www.degiro.com/', avgReturn: 6.0 }
+      'EU': { symbol: '€', name: 'Interactive Brokers', url: 'https://www.interactivebrokers.ie/', avgReturn: 6.0 }
     };
 
     function updateDefaults() {
@@ -198,7 +192,7 @@
       document.getElementById('curr2').innerText = config.symbol;
       document.getElementById('returnRate').value = config.avgReturn;
       const link = document.getElementById('affiliateLink');
-      link.innerText = `Start Investing with ${config.name}`;
+      link.innerText = `Invest with ${config.name}`;
       link.href = config.url;
       calculate();
     }
@@ -206,7 +200,6 @@
     function calculate() {
       const currency = countryConfig[document.getElementById('country').value].symbol;
       const inflationEnabled = document.getElementById('inflationToggle').checked;
-      
       const monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value) || 0;
       const monthlySavings = parseFloat(document.getElementById('monthlySavings').value) || 0;
       const currentSavings = parseFloat(document.getElementById('currentSavings').value) || 0;
@@ -214,10 +207,9 @@
       const withdrawalRate = parseFloat(document.getElementById('withdrawalRate').value) / 100;
       
       let annualReturn = parseFloat(document.getElementById('returnRate').value) / 100;
-      if (inflationEnabled) { annualReturn = annualReturn - 0.03; } // Apply 3% inflation hit
+      if (inflationEnabled) { annualReturn -= 0.03; }
       const monthlyReturnRate = annualReturn / 12;
 
-      // 4% Rule Logic
       const fireNumber = (monthlyExpenses * 12) / withdrawalRate;
       document.getElementById('fireNumber').innerText = currency + Math.round(fireNumber).toLocaleString();
 
@@ -226,11 +218,10 @@
       const labels = [];
       const data = [];
 
-      // Start data point
       labels.push(`Age ${currentAge}`);
       data.push(Math.round(balance));
 
-      while (balance < fireNumber && months < 720) { // 60 year ceiling
+      while (balance < fireNumber && months < 720) {
         balance = balance * (1 + monthlyReturnRate) + monthlySavings;
         months++;
         if (months % 12 === 0) {
@@ -268,31 +259,20 @@
             legend: { display: false },
             tooltip: {
               backgroundColor: '#1f2937',
-              titleColor: '#9ca3af',
-              titleFont: { size: 12 },
-              bodyFont: { weight: 'bold', size: 15 },
               padding: 12,
-              borderColor: '#374151',
-              borderWidth: 1,
               displayColors: false,
               callbacks: {
-                label: function(context) {
-                  return 'Net Worth: ' + currency + context.parsed.y.toLocaleString();
-                }
+                label: function(context) { return 'Net Worth: ' + currency + context.parsed.y.toLocaleString(); }
               }
             }
           },
           scales: {
             y: { display: false },
-            x: { 
-              grid: { display: false }, 
-              ticks: { color: '#71717a', maxTicksLimit: 7, font: { size: 10 } } 
-            }
+            x: { grid: { display: false }, ticks: { color: '#71717a', maxTicksLimit: 7 } }
           }
         }
       });
     }
-
     window.onload = updateDefaults;
   </script>
 </body>
